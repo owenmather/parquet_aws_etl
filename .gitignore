@@ -166,7 +166,6 @@ cython_debug/
 
 crash.log
 crash.*.log
-*.tfvars
 
 
 override.tf
