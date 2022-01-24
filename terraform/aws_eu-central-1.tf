@@ -157,6 +157,7 @@ resource  "aws_glue_job" "transform_glue_job" {
   default_arguments = {
     "--job-language" = "python"
     "--job-bookmark-option" = "job-bookmark-disable"
+    "--TempDir": "s3://${aws_s3_bucket.transformation-data-s3.bucket}//temporary/"
   }
 
   timeout = 2
@@ -210,7 +211,7 @@ resource "aws_glue_workflow" "transformation-workflow" {
 # Example schedule 22 hours every day
 resource "aws_glue_trigger" "transformation-trigger" {
   name          = "transformation-start"
-  schedule = "cron(0 22 * * * *)"
+  schedule = "cron(15 12 * * ? *)"
   type     = "SCHEDULED"
   workflow_name = aws_glue_workflow.transformation-workflow.name
 
